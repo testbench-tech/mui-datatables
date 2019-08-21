@@ -15,6 +15,7 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import ReactToPrint from 'react-to-print';
 import styled from '../styled';
 import { createCSVDownload } from '../utils';
+import TableTabs from './TableTabs';
 
 export const defaultToolbarStyles = (theme, props) => ({
   root: {},
@@ -195,10 +196,17 @@ class TableToolbar extends React.Component {
       toggleViewColumn,
       title,
       tableRef,
+      getTabSelectedId,
+      onTabSelected,
     } = this.props;
 
     const { search, downloadCsv, print, viewColumns, filterTable } = options.textLabels.toolbar;
     const { showSearch, searchText } = this.state;
+
+    let hasTabs = false;
+    if (typeof options.tabs === 'object' && options.tabs !== null) {
+      hasTabs = true;
+    }
 
     return (
       <Toolbar className={classes.root} role={'toolbar'} aria-label={'Table Toolbar'}>
@@ -214,6 +222,8 @@ class TableToolbar extends React.Component {
                 options={options}
               />
             )
+          ) : hasTabs ? (
+            <TableTabs tabs={options.tabs} getTabSelectedId={getTabSelectedId} onTabSelected={onTabSelected} />
           ) : typeof title !== 'string' ? (
             title
           ) : (

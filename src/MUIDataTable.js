@@ -282,6 +282,7 @@ class MUIDataTable extends React.Component {
         filename: 'tableDownload.csv',
         separator: ',',
       },
+      tabs: null,
     };
 
     const extra = {};
@@ -746,6 +747,7 @@ class MUIDataTable extends React.Component {
       rowData: rowData,
       tableData: tableData,
       tableState: tableState,
+      tableTabId: this.getTabSelectedId(),
     };
   };
 
@@ -803,6 +805,7 @@ class MUIDataTable extends React.Component {
             columns[pos].sortDirection = null;
           } else {
             columns[pos].sortDirection = newOrder;
+            console.log(columns[pos].sortDirection);
           }
         }
 
@@ -1156,6 +1159,21 @@ class MUIDataTable extends React.Component {
     return this.tableContent.current;
   };
 
+  handleTabSelected = tabSelected => {
+    this.tabSelected = tabSelected;
+
+    this.setState(prevState => {
+      return {
+        displayData: this.getDisplayData(prevState.columns, prevState.data, prevState.filterList, prevState.searchText),
+      };
+    });
+  };
+
+  getTabSelectedId = () => {
+    const tabSelected = this.tabSelected || this.options.tabs[0];
+    return tabSelected.id;
+  };
+
   render() {
     const { classes, className, title } = this.props;
     const {
@@ -1207,6 +1225,8 @@ class MUIDataTable extends React.Component {
               title={title}
               toggleViewColumn={this.toggleViewColumn}
               setTableAction={this.setTableAction}
+              onTabSelected={this.handleTabSelected}
+              getTabSelectedId={this.getTabSelectedId}
             />
           )
         )}
