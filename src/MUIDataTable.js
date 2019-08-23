@@ -1170,7 +1170,13 @@ class MUIDataTable extends React.Component {
   };
 
   getTabSelectedId = () => {
-    const tabSelected = this.tabSelected || this.options.tabs[0];
+    let tabSelected = this.tabSelected;
+    if (!tabSelected && this.options.tabs && this.options.tabs.length > 0) {
+      tabSelected = this.options.tabs[0];
+    }
+    if (!tabSelected) {
+      return null;
+    }
     return tabSelected.id;
   };
 
