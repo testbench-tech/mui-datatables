@@ -117,23 +117,23 @@ class Example extends React.Component {
       ['Franky Rees', ['Business Analyst', 'BA'], 'St. Petersburg', 22, '$50,000'],
       ['Aaren Rose', ['Business Consultant', 'BC'], 'Toledo', 28, '$75,000'],
       ['Blake Duncan', ['Business Management Analyst', 'BMA'], 'San Diego', 65, '$94,000'],
-      ['Frankie Parry', ['Agency Legal Counsel', 'ALC'], 'Jacksonville', 71, '$210,000'],
+      ['Frankie Parry', ['Agency Legal Counsel', 'LC'], 'Jacksonville', 71, '$210,000'],
       ['Lane Wilson', ['Commercial Specialist', 'CS'], 'Omaha', 19, '$65,000'],
       ['Robin Duncan', ['Business Analyst', 'BA'], 'Los Angeles', 20, '$77,000'],
       ['Mel Brooks', ['Business Consultant', 'BC'], 'Oklahoma City', 37, '$135,000'],
       ['Harper White', ['Attorney', 'AT'], 'Pittsburgh', 52, '$420,000'],
-      ['Kris Humphrey', ['Agency Legal Counsel', 'ALC'], 'Laredo', 30, '$150,000'],
+      ['Kris Humphrey', ['Agency Legal Counsel', 'LC'], 'Laredo', 30, '$150,000'],
       ['Frankie Long', ['Industrial Analyst', 'IA'], 'Austin', 31, '$170,000'],
       ['Brynn Robbins', ['Business Analyst', 'BA'], 'Norfolk', 22, '$90,000'],
       ['Justice Mann', ['Business Consultant', 'BC'], 'Chicago', 24, '$133,000'],
       ['Addison Navarro', ['Business Management Analyst', 'BMA'], 'New York', 50, '$295,000'],
-      ['Jesse Welch', ['Agency Legal Counsel', 'ALC'], 'Seattle', 28, '$200,000'],
+      ['Jesse Welch', ['Agency Legal Counsel', 'LC'], 'Seattle', 28, '$200,000'],
       ['Eli Mejia', ['Commercial Specialist', 'CT'], 'Long Beach', 65, '$400,000'],
       ['Gene Leblanc', ['Industrial Analyst', 'IA'], 'Hartford', 34, '$110,000'],
       ['Danny Leon', ['Computer Scientist', 'CS'], 'Newark', 60, '$220,000'],
       ['Lane Lee', ['Corporate Counselor', 'CC'], 'Cincinnati', 52, '$180,000'],
       ['Jesse Hall', ['Business Analyst', 'BA'], 'Baltimore', 44, '$99,000'],
-      ['Danni Hudson', ['Agency Legal Counsel', 'ALC'], 'Tampa', 37, '$90,000'],
+      ['Danni Hudson', ['Agency Legal Counsel', 'LC'], 'Tampa', 37, '$90,000'],
       ['Terry Macdonald', ['Commercial Specialist', 'CT'], 'Miami', 39, '$140,000'],
       ['Justice Mccarthy', ['Attorney', 'AT'], 'Tucson', 26, '$330,000'],
       ['Silver Carey', ['Computer Scientist', 'CS'], 'Memphis', 47, '$250,000'],
@@ -147,7 +147,20 @@ class Example extends React.Component {
       filter: true,
       filterType: 'dropdown',
       responsive: 'scroll',
-      tabs: [{ name: 'Title', id: 'title' }, { name: 'Title Abbreviation', id: 'abbv' }]
+      tabs: [{ name: 'Title', id: 'title' }, { name: 'Title Abbreviation', id: 'abbv' }],
+      customSort: (data, colIndex, order, selectedTabId) => {
+        return data.sort((a, b) => {
+          let aa = a.data[colIndex];
+          if (colIndex === 1) {
+            aa = aa[selectedTabId === 'title' ? 0 : 1];
+          }
+          let bb = b.data[colIndex];
+          if (colIndex === 1) {
+            bb = bb[selectedTabId === 'title' ? 0 : 1];
+          }
+          return (aa < bb ? -1: 1 ) * (order === 'desc' ? 1 : -1);
+        });
+      }
     };
 
     return (
