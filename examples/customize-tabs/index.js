@@ -2,7 +2,6 @@ import { FormGroup, FormLabel, TextField } from '@material-ui/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MUIDataTable from '../../src';
-import Chip from '@material-ui/core/Chip';
 
 class Example extends React.Component {
   render() {
