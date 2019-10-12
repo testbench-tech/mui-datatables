@@ -47,8 +47,7 @@ class TableTabs extends React.Component {
             }}
             enterDelay={300}
             classes={{ popper: classes.mypopper }}
-            key={tab.id}
-            >
+            key={tab.id}>
             <Chip
               color={selectedId === tab.id ? 'primary' : 'default'}
               label={tab.name}
