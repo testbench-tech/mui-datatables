@@ -147,7 +147,11 @@ class Example extends React.Component {
       filter: true,
       filterType: 'dropdown',
       responsive: 'scroll',
-      tabs: [{ name: 'Title', id: 'title' }, { name: 'Title Abbreviation', id: 'abbv' }],
+      textLabels: {
+        body: {
+          columnHeaderTooltip: column => <Typography variant="body1">Sort for {column.name}</Typography>
+        },
+      },
       customSort: (data, colIndex, order, selectedTabId) => {
         return data.sort((a, b) => {
           let aa = a.data[colIndex];

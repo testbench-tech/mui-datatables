@@ -67,7 +67,8 @@ class TableHead extends React.Component {
                   toggleSort={this.handleToggleColumn}
                   hint={column.hint}
                   print={column.print}
-                  options={options}>
+                  options={options}
+                  column={column}>
                   {column.label}
                 </TableHeadCell>
               )),

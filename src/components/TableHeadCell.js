@@ -68,6 +68,8 @@ class TableHeadCell extends React.Component {
     hint: PropTypes.string,
     /** Column displayed in print */
     print: PropTypes.bool.isRequired,
+    /** Optional to be used with `textLabels.body.columnHeaderTooltip` */
+    column: PropTypes.object,
   };
 
   state = {
@@ -81,7 +83,7 @@ class TableHeadCell extends React.Component {
 
   render() {
     const { isSortTooltipOpen, isHintTooltipOpen } = this.state;
-    const { children, classes, options, sortDirection, sort, hint, print } = this.props;
+    const { children, classes, options, sortDirection, sort, hint, print, column } = this.props;
     const sortActive = sortDirection !== null && sortDirection !== undefined ? true : false;
 
     const sortLabelProps = {
@@ -101,7 +103,11 @@ class TableHeadCell extends React.Component {
       <TableCell className={cellClass} scope={'col'} sortDirection={sortDirection}>
         {options.sort && sort ? (
           <Tooltip
-            title={options.textLabels.body.toolTip}
+            title={
+              options.textLabels.body.columnHeaderTooltip
+                ? options.textLabels.body.columnHeaderTooltip(column)
+                : options.textLabels.body.toolTip
+            }
             placement={'bottom-start'}
             classes={{
               tooltip: classes.tooltip,
