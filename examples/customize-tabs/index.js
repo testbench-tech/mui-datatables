@@ -1,4 +1,4 @@
-import { FormGroup, FormLabel, TextField } from '@material-ui/core';
+import { FormGroup, FormLabel, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MUIDataTable from '../../src';
@@ -152,6 +152,7 @@ class Example extends React.Component {
           columnHeaderTooltip: column => <Typography variant="body1">Sort for {column.name}</Typography>
         },
       },
+      tabs: [{ name: 'Title', id: 'title', hint: <Typography variant="body1">This is the title</Typography> }, { name: 'Title Abbreviation', id: 'abbv', hint: <Typography variant="body1">This is the abbreviation</Typography> }],
       customSort: (data, colIndex, order, selectedTabId) => {
         return data.sort((a, b) => {
           let aa = a.data[colIndex];

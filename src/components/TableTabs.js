@@ -3,10 +3,19 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import PropTypes from 'prop-types';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const defaultTabsStyles = theme => ({
   chip: {
     marginRight: theme.spacing.unit / 2,
+  },
+  mypopper: {
+    '&[data-x-out-of-boundaries]': {
+      display: 'none',
+    },
+  },
+  tooltip: {
+    cursor: 'pointer',
   },
 });
 
@@ -30,14 +39,24 @@ class TableTabs extends React.Component {
     return (
       <Grid>
         {tabs.map(tab => (
-          <Chip
+          <Tooltip
+            title={tab.hint}
+            placement={'bottom-start'}
+            classes={{
+              tooltip: classes.tooltip,
+            }}
+            enterDelay={300}
+            classes={{ popper: classes.mypopper }}
             key={tab.id}
-            color={selectedId === tab.id ? 'primary' : 'default'}
-            label={tab.name}
-            clickable={true}
-            className={classes.chip}
-            onClick={this.handleClick(tab)}
-          />
+            >
+            <Chip
+              color={selectedId === tab.id ? 'primary' : 'default'}
+              label={tab.name}
+              clickable={true}
+              className={classes.chip}
+              onClick={this.handleClick(tab)}
+            />
+          </Tooltip>
         ))}
       </Grid>
     );
